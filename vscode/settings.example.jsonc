@@ -1,0 +1,30 @@
+// Trecho do settings.json do VS Code (Ctrl+Shift+P → "Preferences: Open User Settings (JSON)").
+// Mescle só o que quiser; nada aqui é específico de máquina.
+{
+  // ── Claude Code ──
+  // As duas primeiras andam JUNTAS. `initialPermissionMode: "bypassPermissions"` sozinho não faz
+  // nada: sem `allowDangerouslySkipPermissions: true` a extensão rebaixa o modo para "default" em
+  // silêncio e a opção nem aparece no seletor. O `defaultMode` do ~/.claude/settings.json não
+  // substitui essas chaves na extensão. Bypass = o Claude não pede licença a cada comando; só ligue
+  // se você revisa o que ele faz (os hooks deste pacote seguram o que não pode passar).
+  "claudeCode.allowDangerouslySkipPermissions": true,
+  "claudeCode.initialPermissionMode": "bypassPermissions",
+  "claudeCode.preferredLocation": "panel",
+  "claudeCode.selectedModel": "default",
+  // A extensão roda na interface, não no host remoto: mantém a configuração local em Remote-SSH/WSL.
+  "remote.extensionKind": { "anthropic.claude-code": ["ui"] },
+
+  // ── Desempenho: o que o VS Code (e a busca) não precisa vigiar ──
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/coverage": true
+  }
+}

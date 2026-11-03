@@ -100,3 +100,54 @@ script `scripts/session-title.py`), para achar a sessão no histórico.
 - Em silêncio: sem anunciar nem pedir licença.
 - O ID da sessão é a última pasta do caminho do scratchpad. Se o script falhar (formato interno do
   Claude Code mudou), avise uma vez e siga: o botão Rename do histórico faz o mesmo.
+
+# Onde mora cada coisa
+
+Uma informação, um lugar. Antes de gravar, decida qual destes é o dono:
+
+| Lugar | Guarda |
+|---|---|
+| `CLAUDE.md` (global e do repo) | **regra**: o que, se faltar, faz a IA errar. Curto; história e porquê vão para `docs/` |
+| ADR (`docs/adr/`) | **decisão** e seu porquê |
+| SESSION_LOG | **onde parou**: feito, pendente, próximo passo |
+| base de conhecimento (se houver) | **conhecimento** do negócio, de cliente, de curso |
+| auto-memória (`MEMORY.md`) | **preferência e jeito de trabalhar** do dono, que nenhum repo registra |
+
+Duas fontes discordando: a mais nova e mais formal ganha (ADR > log > memória) e a outra é corrigida.
+
+# Como trabalhar comigo
+
+- **Um assunto por vez.** Antes de abrir outro, feche ou estacione o atual (estacionar = virar tarefa).
+- **Listas curtas**: no máximo 5 itens numerados. O que passar disso vai para a ferramenta de tarefas.
+- **A sessão é a mesa de conversa; o trabalho pesado vai para agente em segundo plano.** Tarefa que
+  leva mais que alguns comandos → `Agent` com `run_in_background`, aviso em uma linha, e a conversa
+  segue livre. Dois agentes editando código ao mesmo tempo → `isolation: "worktree"`.
+- Tom calmo e direto. Sem dramatizar problema; dizer o que está sob controle.
+
+# Pesquisa Web
+
+- Para temas técnicos, priorize documentação oficial, repositórios oficiais e fontes primárias.
+- Biblioteca, framework ou API: consulte o MCP `context7` (documentação atual) antes de responder
+  de memória.
+- Se tiver o MCP `brave-search` instalado, use-o para pesquisa geral em vez do `WebSearch` padrão.
+
+# Navegador e testes
+
+- Use `playwright` para automação de navegador, fluxos end-to-end e reprodução de passos.
+- Use `chrome-devtools` para debugging: console, rede, performance, DOM.
+- Testar fluxo de usuário → Playwright. Diagnosticar problema no navegador → Chrome DevTools.
+
+# Segurança do código
+
+Em código novo que mexe com entrada externa, segredo ou dinheiro: rode o scanner que estiver
+instalado (Snyk, Semgrep), corrija e reescaneie até zerar. Sem scanner, revise à mão injeção, segredo
+no código e validação de entrada, e diga que o scanner não rodou.
+
+# Claude Code no VS Code
+
+O bypass de permissões exige **duas** chaves nas settings do VS Code, não uma:
+`claudeCode.allowDangerouslySkipPermissions: true` **e** `claudeCode.initialPermissionMode:
+"bypassPermissions"`. Sem a primeira, a extensão rebaixa o modo para `default` em silêncio.
+`bypassPermissions` no `.claude/settings.json` de projeto é sempre ignorado. No modo Auto, o
+classificador barra deploy de produção e mexer em arquivo de senha, e o Claude não consegue
+desligá-lo sozinho: peça ao usuário.

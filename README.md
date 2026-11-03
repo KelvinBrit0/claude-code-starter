@@ -46,7 +46,8 @@ de travas na porta (hooks) e de ajudantes especializados (agents) que reduz esse
 | `agents/session-resumer.md` | No começo da sessão, lê o log, confere com o git e diz onde paramos (só leitura) | Recomeçar sem contexto |
 | `agents/planejador-estrategico.md` | Quebra uma demanda grande em plano com etapas, dependências e riscos | Começar a codar sem plano |
 | `skills/session-name/` + `scripts/session-title.py` | Dá e atualiza o nome da sessão no padrão acima | Histórico de sessões ilegível |
-| `settings.example.json` | O que vai no `settings.json`: a compactação aos 200 mil tokens, os agentes em Sonnet e o bloco `hooks` que liga as quatro peças de `hooks/` | Hook copiado mas não ligado não faz nada; conversa e agente gastando mais que o necessário |
+| `vscode/` | Settings e extensões do VS Code (bypass de permissões, notificações) | Configuração do editor que "some" sem aviso |
+| `settings.example.json` | O que vai no `settings.json`: idioma, esforço, permissões, plugins, a compactação aos 200 mil tokens, os agentes em Sonnet e o bloco `hooks` que liga as quatro peças de `hooks/` | Hook copiado mas não ligado não faz nada; conversa e agente gastando mais que o necessário |
 
 Todos os agentes são genéricos.
 
@@ -75,7 +76,7 @@ Os caminhos usam `<HOME>` para a sua pasta pessoal. Troque por ela com barras no
 2. **CLAUDE.md.** Se você não tem `<HOME>/.claude/CLAUDE.md`, copie o deste pacote. Se tem, junte só
    os blocos que quiser.
 3. **settings.json.** Abra `<HOME>/.claude/settings.json` e mescle o conteúdo de
-   `settings.example.json` (`autoCompactWindow`, `env` e `hooks`), trocando `<HOME>`. Se já existir uma chave `hooks`, **acrescente** as
+   `settings.example.json` (idioma, esforço, compactação, `env`, permissões, plugins e `hooks`), trocando `<HOME>`. Se já existir uma chave `hooks`, **acrescente** as
    entradas dentro dela em vez de substituir. Reinicie o Claude Code.
 4. **Python.** Os hooks e o script são Python 3.9 ou mais novo (só biblioteca padrão). Confira com `python --version`; em Mac
    ou Linux o comando costuma ser `python3` (troque no `command` do settings).
@@ -104,6 +105,31 @@ Os caminhos usam `<HOME>` para a sua pasta pessoal. Troque por ela com barras no
 - **`session-name`**: o ID da sessão vem do caminho do scratchpad que o Claude Code mostra nas
   instruções do sistema. O script mexe num formato interno do Claude Code (não documentado, testado
   em 17/10/2026): se parar de funcionar, o botão Rename do histórico faz o mesmo.
+
+## O resto do setup de origem (configurações, VS Code, plugins, MCPs)
+
+Além das peças acima, o setup de onde este pacote saiu tem:
+
+- **`settings.example.json` completo**: idioma (`language`), esforço padrão (`effortLevel: high`),
+  histórico por 180 dias (`cleanupPeriodDays`), compactação aos 200 mil tokens, agentes em Sonnet,
+  permissões (comandos só de leitura liberados; `git push --force` bloqueado), plugins e hooks.
+  Mescle no seu `~/.claude/settings.json`; não substitua o arquivo inteiro.
+- **VS Code** (`vscode/`): `settings.example.jsonc` com as duas chaves do bypass (que só funcionam
+  juntas) e exclusões de desempenho; `extensions.txt` com as extensões. Instale com
+  `code --install-extension <id>`. A `singularityinc.claude-notifier` avisa no Windows quando o Claude
+  termina, pede permissão ou faz uma pergunta; ela cria os próprios hooks no `settings.json`.
+- **Plugins** (`/plugin` no Claude Code, catálogo `claude-plugins-official`): `code-review` (revisor
+  de diff, usado no "pronto = conferido"), `frontend-design` (direção visual de tela) e
+  `typescript-lsp` (o Claude entende tipos do TypeScript). Ligue só os que usar: plugin ligado gasta
+  contexto.
+- **MCPs genéricos** (`claude mcp add --scope user ...`): `context7` (documentação atual de
+  biblioteca), `playwright` (navegador), `github` (PR, issue), `brave-search` (pesquisa web; precisa
+  de chave da Brave). Ligue só os que o projeto usa (ver "Custo").
+
+**Ficou de fora de propósito**, por ser da empresa de origem e não servir a outra pessoa: a conexão
+com a base de conhecimento interna, o CRM e o ClickUp dela, as contas Cloudflare, o hook que trava
+o ClickUp num workspace só e a skill de backlog presa a esse ClickUp. O padrão de cada um está
+descrito acima quando vale copiar.
 
 ## Custo (tokens)
 

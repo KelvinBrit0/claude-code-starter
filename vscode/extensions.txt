@@ -1,0 +1,6 @@
+anthropic.claude-code
+singularityinc.claude-notifier
+ms-playwright.playwright
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+bradlc.vscode-tailwindcss
