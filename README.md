@@ -110,7 +110,7 @@ Os caminhos usam `<HOME>` para a sua pasta pessoal. Troque por ela com barras no
 
 Além das peças acima, o setup de onde este pacote saiu tem:
 
-- **`settings.example.json` completo**: idioma (`language`), esforço padrão (`effortLevel: high`),
+- **`settings.example.json` completo**: idioma (`language`), esforço padrão (`effortLevel: medium`; ver "Custo"),
   histórico por 180 dias (`cleanupPeriodDays`), compactação aos 200 mil tokens, agentes em Sonnet,
   permissões (comandos só de leitura liberados; `git push --force` bloqueado), plugins e hooks.
   Mescle no seu `~/.claude/settings.json`; não substitua o arquivo inteiro.
@@ -160,6 +160,14 @@ antes de tratar como verdade.
    naquele projeto (chave conferida no arquivo de origem em 02/11/2026). Cuidado: o caminho tem de
    estar escrito igual ao que o Claude Code registrou para aquele projeto (no Windows, a letra do
    drive em maiúscula ou minúscula pode importar: a confirmar no seu arquivo).
+7. **Esforço (`effortLevel`) em `medium` no dia a dia.** Por quê: o esforço é o quanto o modelo
+   pensa antes de responder (`low`, `medium`, `high`, `xhigh`, `max`). Mais alto erra menos em
+   problema difícil, mas gasta mais tokens e demora mais; junto com o modelo, é o que mais pesa no
+   gasto. Suba para `high` ou `xhigh` só na tarefa difícil (bug complicado, arquitetura) pelo seletor
+   de esforço e volte depois. Configurar no `settings.json`: `"effortLevel": "medium"`. Atenção: vale
+   também por modelo, em `"modelSettings": { "<id do modelo>": { "effortLevel": "..." } }`, e essa
+   linha ganha da geral; o seletor do VS Code grava ali. Se o esforço que aparece não bate com o
+   arquivo, procure essa chave.
 
 ## Perguntas para o seu Claude analisar
 
