@@ -1,0 +1,61 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"<HOME>/.claude/hooks/compact-clickup-resume.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"<HOME>/.claude/hooks/git-behind-check.py\"",
+            "timeout": 30,
+            "statusMessage": "Conferindo se o repo está em dia com o remoto..."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|Edit|Write|MultiEdit|Read|Grep|Glob|NotebookEdit|Agent|Task|mcp__playwright__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"<HOME>/.claude/hooks/delegate-reminder.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"<HOME>/.claude/hooks/delegate-reminder.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"<HOME>/.claude/hooks/session-close-check.py\"",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  }
+}
