@@ -46,7 +46,7 @@ de travas na porta (hooks) e de ajudantes especializados (agents) que reduz esse
 | `agents/session-resumer.md` | No começo da sessão, lê o log, confere com o git e diz onde paramos (só leitura) | Recomeçar sem contexto |
 | `agents/planejador-estrategico.md` | Quebra uma demanda grande em plano com etapas, dependências e riscos | Começar a codar sem plano |
 | `skills/session-name/` + `scripts/session-title.py` | Dá e atualiza o nome da sessão no padrão acima | Histórico de sessões ilegível |
-| `settings.example.json` | O trecho `hooks` do `settings.json` que liga as quatro peças de `hooks/` | Hook copiado mas não ligado não faz nada |
+| `settings.example.json` | O que vai no `settings.json`: a compactação aos 200 mil tokens, os agentes em Sonnet e o bloco `hooks` que liga as quatro peças de `hooks/` | Hook copiado mas não ligado não faz nada; conversa e agente gastando mais que o necessário |
 
 Todos os agentes são genéricos.
 
@@ -74,8 +74,8 @@ Os caminhos usam `<HOME>` para a sua pasta pessoal. Troque por ela com barras no
    para `<HOME>/.claude/scripts/`. Não sobrescreva o que você já tem sem comparar.
 2. **CLAUDE.md.** Se você não tem `<HOME>/.claude/CLAUDE.md`, copie o deste pacote. Se tem, junte só
    os blocos que quiser.
-3. **settings.json.** Abra `<HOME>/.claude/settings.json` e mescle o bloco `hooks` de
-   `settings.example.json`, trocando `<HOME>`. Se já existir uma chave `hooks`, **acrescente** as
+3. **settings.json.** Abra `<HOME>/.claude/settings.json` e mescle o conteúdo de
+   `settings.example.json` (`autoCompactWindow`, `env` e `hooks`), trocando `<HOME>`. Se já existir uma chave `hooks`, **acrescente** as
    entradas dentro dela em vez de substituir. Reinicie o Claude Code.
 4. **Python.** Os hooks e o script são Python 3.9 ou mais novo (só biblioteca padrão). Confira com `python --version`; em Mac
    ou Linux o comando costuma ser `python3` (troque no `command` do settings).
