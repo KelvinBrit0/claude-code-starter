@@ -76,7 +76,7 @@ Os caminhos usam `<HOME>` para a sua pasta pessoal. Troque por ela com barras no
 2. **CLAUDE.md.** Se você não tem `<HOME>/.claude/CLAUDE.md`, copie o deste pacote. Se tem, junte só
    os blocos que quiser.
 3. **settings.json.** Abra `<HOME>/.claude/settings.json` e mescle o conteúdo de
-   `settings.example.json` (idioma, esforço, compactação, `env`, permissões, plugins e `hooks`), trocando `<HOME>`. Se já existir uma chave `hooks`, **acrescente** as
+   `settings.example.json` (idioma, modelo, esforço, compactação, `env`, permissões, plugins e `hooks`), trocando `<HOME>`. Se já existir uma chave `hooks`, **acrescente** as
    entradas dentro dela em vez de substituir. Reinicie o Claude Code.
 4. **Python.** Os hooks e o script são Python 3.9 ou mais novo (só biblioteca padrão). Confira com `python --version`; em Mac
    ou Linux o comando costuma ser `python3` (troque no `command` do settings).
@@ -110,7 +110,8 @@ Os caminhos usam `<HOME>` para a sua pasta pessoal. Troque por ela com barras no
 
 Além das peças acima, o setup de onde este pacote saiu tem:
 
-- **`settings.example.json` completo**: idioma (`language`), esforço padrão (`effortLevel: medium`; ver "Custo"),
+- **`settings.example.json` completo**: idioma (`language`), Opus como modelo da conversa principal
+  (`model: opus`; os agentes ficam em Sonnet e só sobem para Opus com motivo, ver "Custo"), esforço padrão (`effortLevel: medium`; ver "Custo"),
   histórico por 180 dias (`cleanupPeriodDays`), compactação aos 200 mil tokens, agentes em Sonnet,
   permissões (comandos só de leitura liberados; `git push --force` bloqueado), plugins e hooks.
   Mescle no seu `~/.claude/settings.json`; não substitua o arquivo inteiro.
