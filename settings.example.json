@@ -30,7 +30,8 @@
   "enabledPlugins": {
     "code-review@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
   },
   "hooks": {
     "SessionStart": [
@@ -90,5 +91,21 @@
         ]
       }
     ]
-  }
+  },
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "medium"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    }
+  },
+  "autoUpdatesChannel": "latest",
+  "agentPushNotifEnabled": true,
+  "remoteControlAtStartup": true,
+  "skipDangerousModePermissionPrompt": true,
+  "switchModelsOnFlag": false,
+  "theme": "dark",
+  "tui": "fullscreen",
+  "verbose": false
 }
